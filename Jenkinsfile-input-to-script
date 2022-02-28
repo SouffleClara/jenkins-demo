@@ -10,7 +10,7 @@ pipeline {
                 }
             }
             steps {
-                sh './test-input-script.sh $1'
+                sh './test-input-script.sh $username'
                 }
             }
         }
