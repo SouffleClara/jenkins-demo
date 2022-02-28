@@ -2,12 +2,19 @@ pipeline {
     agent any
     stages {
         stage('tryinput') {
+            input{
+                message "Next step"
+                ok "submit"
+                parameters{
+                    string(name: 'username', defaultValue: 'John', description: 'create your namespace')
+                }
+            }
             steps {
-                sh 'ls -la'
+
                 retry(3) {
                     sh './test-input-script.sh'
                 }
-                sh 'ls -la'
+
             }
         
         }
