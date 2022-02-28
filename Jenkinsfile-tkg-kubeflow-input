@@ -1,6 +1,6 @@
 def INPUT_PARAMS = null
-string namespace = ""
-string number = ""
+// string namespace = ""
+// string number = ""
 
 pipeline {
     agent any
@@ -15,27 +15,27 @@ pipeline {
                     parameters: [
                         string(name: 'NAMESPACE', defaultValue: 'zyajing', description: 'Please input namespace'),
                         string(name: 'NUMBER', defaultValue: '01', description: 'Please input cluster number')]
-                    // env.NAMESPACE = INPUT_PARAMS.NAMESPACE
-                    // env.NUMBER = INPUT_PARAMS.NUMBER
+                    env.NAMESPACE = INPUT_PARAMS.NAMESPACE
+                    env.NUMBER = INPUT_PARAMS.NUMBER
                     )
                 }
                 sh 'ls -la'
                 echo "Namespace is ${INPUT_PARAMS.NAMESPACE}, cluster number is ${INPUT_PARAMS.NUMBER}."
-                namespace = ${INPUT_PARAMS.NAMESPACE}
-                number = ${INPUT_PARAMS.NUMBER}
-                echo "Namespace is ${namespace}, cluster number is ${number}."
-                sh "./tkg-cluster-deployer.sh -a ${namespace} -b ${number}"
+                // namespace = ${INPUT_PARAMS.NAMESPACE}
+                // number = ${INPUT_PARAMS.NUMBER}
+                // echo "Namespace is ${namespace}, cluster number is ${number}."
+                sh "./tkg-cluster-deployer.sh -a ${env.NAMESPACE} -b ${env.NUMBER}"
             }
         }
         stage('DeployKubeflow') {
             steps {
                 sh 'ls -la'
                 retry(3) {
-                echo "Namespace is ${INPUT_PARAMS.NAMESPACE}, cluster number is ${INPUT_PARAMS.NUMBER}."
-                namespace = ${INPUT_PARAMS.NAMESPACE}
-                number = ${INPUT_PARAMS.NUMBER}
-                echo "Namespace is ${namespace}, cluster number is ${number}."
-                    sh "./kubeflow-deployer-individual.sh -a ${namespace} -b ${number}"
+                echo "Namespace is ${env.NAMESPACE}, cluster number is ${env.NUMBER}."
+                // namespace = ${INPUT_PARAMS.NAMESPACE}
+                // number = ${INPUT_PARAMS.NUMBER}
+                // echo "Namespace is ${namespace}, cluster number is ${number}."
+                    sh "./kubeflow-deployer-individual.sh -a ${env.NAMESPACE} -b ${env.NUMBER}"
                 }
             }
         }
