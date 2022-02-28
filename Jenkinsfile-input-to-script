@@ -3,16 +3,15 @@ pipeline {
     stages {
         stage('tryinput') {
             input{
-                message "Next step"
-                ok "submit"
+                message 'Next step'
+                ok 'submit'
                 parameters{
                     string(name: 'username', defaultValue: 'John', description: 'create your namespace')
                 }
             }
             steps {
-
-                retry(3) {
-                    sh './test-input-script.sh'
+                sh 'echo $1 >> ./test-input-script.sh'
+                sh './test-input-script.sh'
                 }
 
             }
