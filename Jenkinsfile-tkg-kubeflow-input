@@ -1,4 +1,6 @@
 def INPUT_PARAMS = null
+string namespace = ""
+string number = ""
 
 pipeline {
     agent any
