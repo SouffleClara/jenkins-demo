@@ -158,11 +158,6 @@ while true; do
   echo "Wait cert-manager kubeflow-issuer finish..."
 done
 
-# sleep 10
-# echo "Install cert-manager again"
-# kustomize build manifests-1.4-branch/common/cert-manager/cert-manager/base | kubectl apply -f -
-# kustomize build manifests-1.4-branch/common/cert-manager/kubeflow-issuer/base | kubectl apply -f -
-
 echo "Install istio"
 # patch api server here
 
@@ -198,13 +193,6 @@ while true; do
   echo "Wait cluster-local-gateway base finish..."
 done
 
-# kustomize build manifests-1.4-branch/common/knative/knative-serving/base | kubectl apply -f -
-# kustomize build manifests-1.4-branch/common/istio-1-9/cluster-local-gateway/base | kubectl apply -f -
-
-# sleep 10
-# echo "Install Knative Serving again"
-# kustomize build manifests-1.4-branch/common/knative/knative-serving/base | kubectl apply -f -
-# kustomize build manifests-1.4-branch/common/istio-1-9/cluster-local-gateway/base | kubectl apply -f -
 
 echo "Install kubeflow namespace"
 
@@ -229,11 +217,6 @@ while true; do
   sleep 10
   echo "Wait kubeflow pipelines finish..."
 done
-
-# kustomize build manifests-1.4-branch/apps/pipeline/upstream/env/platform-agnostic-multi-user-pns | kubectl apply -f -
-# sleep 10
-# echo "Install kubeflow pipelines again"
-# kustomize build manifests-1.4-branch/apps/pipeline/upstream/env/platform-agnostic-multi-user-pns | kubectl apply -f -
 
 echo "Install KFServing"
 
@@ -286,24 +269,6 @@ kustomize build manifests-1.4-branch/apps/mpi-job/upstream/overlays/kubeflow | k
 echo "Create user namespace"
 
 kustomize build manifests-1.4-branch/common/user-namespace/base | kubectl apply -f -
-
-# while true; do
-#   kubectl get ns|grep kubeflow-user-example-com | grep Active
-#   if [[ $? == 0 ]]; then
-#     break
-#   fi
-#   sleep 10
-#   echo "Wait kubeflow-user-example-com namespace creating finish..."
-# done
-
-# while true; do
-#   kubectl create ns kubeflow-user-example-com
-#   if [[ $? == 0 ]]; then
-#     break
-#   fi
-#   sleep 10
-#   echo "Wait create kubeflow-user-example-com..."
-# done
 
 echo "Fix PSP"
 cat << EOF | kubectl apply -f -
