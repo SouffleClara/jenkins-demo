@@ -13,9 +13,7 @@ pipeline {
                 sh 'echo $1 >> ./test-input-script.sh'
                 sh './test-input-script.sh'
                 }
-
             }
-        
         }
     }
 }
