@@ -22,7 +22,7 @@ pipeline {
                 namespace = ${INPUT_PARAMS.NAMESPACE}
                 number = ${INPUT_PARAMS.NUMBER}
                 echo "Namespace is ${namespace}, cluster number is ${number}."
-                sh './tkg-cluster-deployer.sh -a ${namespace} -b ${number}'
+                sh "./tkg-cluster-deployer.sh -a ${namespace} -b ${number}"
             }
         }
         stage('DeployKubeflow') {
@@ -33,7 +33,7 @@ pipeline {
                 namespace = ${INPUT_PARAMS.NAMESPACE}
                 number = ${INPUT_PARAMS.NUMBER}
                 echo "Namespace is ${namespace}, cluster number is ${number}."
-                    sh './kubeflow-deployer-individual.sh -a ${namespace} -b ${number}'
+                    sh "./kubeflow-deployer-individual.sh -a ${namespace} -b ${number}"
                 }
             }
         }
